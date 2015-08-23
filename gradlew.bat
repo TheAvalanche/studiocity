@@ -5,6 +5,8 @@
 @rem
 @rem ##########################################################################
 
+if NOT "%JAVA_HOME_8%" == "" set JAVA_HOME=%JAVA_HOME_8%
+
 @rem Set local scope for the variables with windows NT shell
 if "%OS%"=="Windows_NT" setlocal
 
