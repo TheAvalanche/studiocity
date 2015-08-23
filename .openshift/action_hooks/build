@@ -1,4 +1,6 @@
 #!/bin/bash
 export GRADLE_USER_HOME=$OPENSHIFT_DATA_DIR/gradle
+export JAVA_HOME="$OPENSHIFT_DATA_DIR/jdk1.8.0_60"
+export PATH=$JAVA_HOME/bin:$PATH
 cd $OPENSHIFT_REPO_DIR
 $OPENSHIFT_REPO_DIR/gradlew clean build
