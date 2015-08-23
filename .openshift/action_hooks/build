@@ -1,3 +1,3 @@
 #!/bin/bash
 cd $OPENSHIFT_REPO_DIR
-gradlew clean build
+$OPENSHIFT_REPO_DIR/gradlew clean build
