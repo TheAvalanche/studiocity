@@ -1,0 +1,8 @@
+{
+  "name": "studiocity",
+  "dependencies": {
+    "bootstrap": "~3.3",
+    "angular": "~1.4",
+    "bootstrap-css-only": "~3.2.0"
+  }
+}

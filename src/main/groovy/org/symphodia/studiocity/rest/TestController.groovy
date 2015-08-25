@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class TestController {
 
-    @RequestMapping("/")
-    String home() {
-        return "Hello World!!!"
+    @RequestMapping("/test")
+    Map test() {
+        return  [id: UUID.randomUUID().toString(), content: "Hello World!"]
     }
 
 }
