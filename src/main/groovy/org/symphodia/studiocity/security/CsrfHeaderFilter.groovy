@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse
 class CsrfHeaderFilter extends OncePerRequestFilter {
 
     void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
-        CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
+        CsrfToken csrf = request.getAttribute(CsrfToken.class.name);
         if (csrf != null) {
             Cookie cookie = WebUtils.getCookie(request, "XSRF-TOKEN");
             String token = csrf.getToken();

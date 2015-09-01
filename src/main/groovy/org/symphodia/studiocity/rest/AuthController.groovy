@@ -10,7 +10,7 @@ class AuthController {
 
     @RequestMapping("/user")
     public Principal user(Principal user) {
-        return user
+        user
     }
 
 }

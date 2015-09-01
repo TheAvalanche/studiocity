@@ -27,8 +27,6 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     CsrfTokenRepository csrfTokenRepository() {
-        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
-        repository.setHeaderName("X-XSRF-TOKEN");
-        return repository;
+        new HttpSessionCsrfTokenRepository(headerName: "X-XSRF-TOKEN");
     }
 }

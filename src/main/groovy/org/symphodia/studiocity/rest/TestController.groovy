@@ -8,7 +8,7 @@ class TestController {
 
     @RequestMapping("/test")
     Map test() {
-        return  [id: UUID.randomUUID().toString(), content: "Hello World!"]
+        [id: UUID.randomUUID().toString(), content: "Hello World!"]
     }
 
 }
