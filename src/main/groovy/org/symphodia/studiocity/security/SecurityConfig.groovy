@@ -19,7 +19,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/static/**", "/index.html", "/views/home.html", "/views/login.html", "/").permitAll()
+                .antMatchers("/static/**", "/index.html", "/views/**", "/img/**", "/css/**", "/").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)

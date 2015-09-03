@@ -12,16 +12,16 @@ import javax.servlet.http.HttpServletResponse
 class CsrfHeaderFilter extends OncePerRequestFilter {
 
     void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
-        CsrfToken csrf = request.getAttribute(CsrfToken.class.name);
-        if (csrf != null) {
-            Cookie cookie = WebUtils.getCookie(request, "XSRF-TOKEN");
-            String token = csrf.getToken();
-            if (cookie == null || token != null && !token.equals(cookie.getValue())) {
-                cookie = new Cookie("XSRF-TOKEN", token);
-                cookie.setPath("/");
-                response.addCookie(cookie);
+        CsrfToken csrf = request.getAttribute(CsrfToken.class.name)
+        if (csrf) {
+            Cookie cookie = WebUtils.getCookie(request, "XSRF-TOKEN")
+            String token = csrf.getToken()
+            if (!cookie || token && token != cookie.value) {
+                cookie = new Cookie("XSRF-TOKEN", token)
+                cookie.setPath("/")
+                response.addCookie(cookie)
             }
         }
-        filterChain.doFilter(request, response);
+        filterChain.doFilter(request, response)
     }
 }
