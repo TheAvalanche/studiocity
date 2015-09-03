@@ -2,7 +2,9 @@
 
 angular
     .module('studiocity', [
-        'ngRoute'
+        'ngRoute',
+        'duScroll',
+        'ui.bootstrap'
     ])
     .config(function($routeProvider, $httpProvider) {
 

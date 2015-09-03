@@ -11,25 +11,29 @@
         [ng\:cloak], [ng-cloak], .ng-cloak {
             display: none !important;
         }
+        a.active {
+            background: #00AC7F;
+            color: #fff;
+        }
     </style>
 </head>
 
 <body ng-controller="frontCtrl" ng-cloak class="ng-cloak" id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+<nav collapse-on-scroll class="navbar navbar-custom navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+            <button type="button" class="navbar-toggle" ng-init="navbarCollapsed=true" ng-click="navbarCollapsed = !navbarCollapsed" data-toggle="collapse" data-target=".navbar-main-collapse">
                 <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand page-scroll" href="#page-top">
+            <a du-smooth-scroll duration="2000" class="navbar-brand" href="#page-top">
                 <i class="fa fa-headphones"></i> <span class="light">Studio</span> city
             </a>
         </div>
 
-        <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+        <div class="collapse navbar-collapse navbar-right navbar-main-collapse" collapse="navbarCollapsed">
             <ul class="nav navbar-nav">
                 <li class="hidden">
-                    <a href="#page-top"></a>
+                    <a du-smooth-scroll duration="2000" href="#page-top"></a>
                 </li>
                 <li ng-show="authenticated">
                     <a href="" ng-click="logout()">Logout</a>
@@ -38,10 +42,10 @@
                     <a href="" ng-click="login()">Login</a>
                 </li>
                 <li ng-show="!authenticated">
-                    <a class="page-scroll" href="#signin">Sign In</a>
+                    <a du-scrollspy du-smooth-scroll duration="2000" href="#signin" ng-click="navbarCollapsed = true">Sign In</a>
                 </li>
-                <li>
-                    <a class="page-scroll" href="#about">About</a>
+                <li du-scrollspy>
+                    <a du-scrollspy du-smooth-scroll duration="2000" href="#about" ng-click="navbarCollapsed = true">About</a>
                 </li>
             </ul>
         </div>
@@ -53,7 +57,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <h1 class="brand-heading">StudoCity</h1>
+                    <h1 class="brand-heading">StudioCity</h1>
 
                     <p class="intro-text">A free, responsive, one page Bootstrap theme.<br>Created by Start Bootstrap.</p>
                     <a href="#search" class="btn btn-circle page-scroll">
@@ -117,12 +121,12 @@
 
 <script src="static/bower_components/angular/angular.min.js" type="text/javascript"></script>
 <script src="static/bower_components/angular-route/angular-route.min.js" type="text/javascript"></script>
-<script src="static/bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
-<script src="static/bower_components/jquery.easing/js/jquery.easing.min.js" type="text/javascript"></script>
-<script src="static/bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="static/bower_components/angular-scroll/angular-scroll.min.js" type="text/javascript"></script>
+<script src="static/bower_components/angular-bootstrap/ui-bootstrap.min.js" type="text/javascript"></script>
 <script src="js/app.js" type="text/javascript"></script>
 <script src="js/controllers.js" type="text/javascript"></script>
 <script src="js/services.js" type="text/javascript"></script>
+<script src="js/directives.js" type="text/javascript"></script>
 <script src="static/bower_components/greyscale/grayscale.js" type="text/javascript"></script>
 </body>
 </html>
