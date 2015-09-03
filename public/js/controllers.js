@@ -39,7 +39,7 @@ angular.module('studiocity')
             });
         };
     })
-    .controller("navCtrl", function ($rootScope, $scope, $http) {
+    .controller("frontCtrl", function ($rootScope, $scope, $http) {
         $scope.logout = function() {
             $http.post('logout', {}).success(function() {
                 $rootScope.authenticated = false;
