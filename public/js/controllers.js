@@ -47,5 +47,32 @@ angular.module('studiocity')
             }).error(function() {
                 $rootScope.authenticated = false;
             });
-        }
+        };
+
+        $scope.loadStudios = function(type, city) {
+            $scope.studios = [{
+                name: "Studio 1",
+                logoUrl: "http://lorempixel.com/400/200/technics/1",
+                address: "Visku iela 13-55",
+                phone: "28272988",
+                workingHours: "24/7",
+                description: "The best studio ever in the city center"
+            },{
+                name: "Studio 2",
+                logoUrl: "http://lorempixel.com/400/200/technics/2",
+                address: "Mukusalas iela 13-55",
+                phone: "28272988",
+                workingHours: "24/7",
+                description: "The best studio ever in the city center"
+            },{
+                name: "Studio 3",
+                logoUrl: "http://lorempixel.com/400/200/technics/3",
+                address: "Krasta iela 13-55",
+                phone: "28272988",
+                workingHours: "24/7",
+                description: "The best studio ever in the city center"
+            }]
+        };
+
+        $scope.loadStudios();
     });

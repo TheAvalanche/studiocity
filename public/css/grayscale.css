@@ -344,3 +344,23 @@ body {
         padding-top: 250px;
     }
 }
+
+.search-section {
+    padding-top: 50px;
+}
+
+@media(min-width:767px) {
+    .search-section {
+        padding-top: 100px;
+    }
+}
+
+.result-section {
+    padding-top: 50px;
+}
+
+@media(min-width:767px) {
+    .result-section {
+        padding-top: 100px;
+    }
+}
