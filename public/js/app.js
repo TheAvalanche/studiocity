@@ -4,9 +4,10 @@ angular
     .module('studiocity', [
         'ngRoute',
         'duScroll',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'uiGmapgoogle-maps'
     ])
-    .config(function($routeProvider, $httpProvider) {
+    .config(function($routeProvider, $httpProvider, uiGmapGoogleMapApiProvider) {
 
         $routeProvider.when('/', {
             templateUrl : 'views/home.html',
@@ -17,6 +18,12 @@ angular
         }).otherwise('/');
 
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+
+        uiGmapGoogleMapApiProvider.configure({
+            //    key: 'your api key',
+            v: '3.20', //defaults to latest 3.X anyhow
+            libraries: 'weather,geometry,visualization'
+        });
 
     }).run(["$rootScope", "$http", function($rootScope, $http) {
 

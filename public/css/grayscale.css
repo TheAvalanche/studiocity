@@ -30,14 +30,14 @@ h6 {
     letter-spacing: 1px;
 }
 
-p {
+p.section {
     margin: 0 0 25px;
     font-size: 18px;
     line-height: 1.5;
 }
 
 @media(min-width:768px) {
-    p {
+    p.section {
         margin: 0 0 35px;
         font-size: 20px;
         line-height: 1.6;
@@ -349,18 +349,51 @@ body {
     padding-top: 50px;
 }
 
-@media(min-width:767px) {
-    .search-section {
-        padding-top: 100px;
-    }
-}
 
 .result-section {
     padding-top: 50px;
+}
+
+.signin-section {
+    width: 100%;
+    margin-top: 50px;
+    padding: 50px 0;
+    color: #fff;
+    background: url(../img/banner-bg.jpg) no-repeat center center scroll;
+    background-color: #000;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
 }
 
 @media(min-width:767px) {
     .result-section {
         padding-top: 100px;
     }
+
+    .search-section {
+        padding-top: 100px;
+    }
+
+    .signin-section {
+        margin-top: 100px;
+        padding-top: 100px;
+    }
+}
+
+.result-article {
+    margin-top: 30px;
+    border: 1px solid #42dca3;
+    background-color: #051003;
+    padding: 20px;
+}
+
+.studio-header {
+    margin-bottom: 20px;
+    color: #42dca3;
+}
+
+.angular-google-map-container {
+    height: 200px;
 }
