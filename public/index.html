@@ -4,13 +4,15 @@
     <title>StudioCity</title>
     <link href="static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="static/bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet"
+          type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="css/grayscale.css" rel="stylesheet">
     <style type="text/css">
         [ng\:cloak], [ng-cloak], .ng-cloak {
             display: none !important;
         }
+
         li.active {
             background: #00AC7F;
             color: #fff;
@@ -18,11 +20,14 @@
     </style>
 </head>
 
-<body ng-controller="frontCtrl" ng-cloak class="ng-cloak" id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<body ng-controller="frontCtrl" ng-cloak class="ng-cloak" id="page-top" data-spy="scroll"
+      data-target=".navbar-fixed-top">
 <nav collapse-on-scroll class="navbar navbar-custom navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" ng-init="navbarCollapsed=true" ng-click="navbarCollapsed = !navbarCollapsed" data-toggle="collapse" data-target=".navbar-main-collapse">
+            <button type="button" class="navbar-toggle" ng-init="navbarCollapsed=true"
+                    ng-click="navbarCollapsed = !navbarCollapsed" data-toggle="collapse"
+                    data-target=".navbar-main-collapse">
                 <i class="fa fa-bars"></i>
             </button>
             <a du-smooth-scroll duration="2000" class="navbar-brand" href="#page-top">
@@ -41,10 +46,10 @@
                 <li ng-show="!authenticated">
                     <a href="" ng-click="login()">Login</a>
                 </li>
-                <li du-scrollspy="signin" ng-show="!authenticated">
+                <li du-scrollspy="signin" offset="200" ng-show="!authenticated">
                     <a du-smooth-scroll duration="2000" href="#signin" ng-click="navbarCollapsed = true">Sign In</a>
                 </li>
-                <li du-scrollspy="about">
+                <li du-scrollspy="about" offset="200">
                     <a du-smooth-scroll duration="2000" href="#about" ng-click="navbarCollapsed = true">About</a>
                 </li>
             </ul>
@@ -59,7 +64,8 @@
                 <div class="col-md-8 col-md-offset-2">
                     <h1 class="brand-heading">StudioCity</h1>
 
-                    <p class="intro-text">The best way to find the place for your creativity.<br>Created by Symphodia.</p>
+                    <p class="intro-text">The best way to find the place for your creativity.<br>Created by Symphodia.
+                    </p>
                     <a du-smooth-scroll duration="2000" href="#search" class="btn btn-circle page-scroll">
                         <i class="fa fa-angle-double-down animated"></i>
                     </a>
@@ -99,7 +105,9 @@
             </div>
             <div class="col-lg-4 text-left">
                 <p><i class="fa fa-map-marker"></i> {{studio.address}}</p>
+
                 <p><i class="fa fa-phone"></i> {{studio.phone}}</p>
+
                 <p><i class="fa fa-clock-o"></i> {{studio.workingHours}}</p>
                 <ui-gmap-google-map center='studio.map' zoom='15' options="options">
                     <ui-gmap-marker coords="studio.map" idKey="studio.id"/>
@@ -113,21 +121,25 @@
     <div class="row">
         <div class="col-lg-6 col-lg-offset-6">
             <h2 class="col-lg-offset-2">Sign In</h2>
+
             <form class="form-horizontal">
                 <div class="form-group">
                     <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+
                     <div class="col-lg-4">
                         <input type="email" class="form-control" id="inputEmail" placeholder="Email">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+
                     <div class="col-lg-4">
                         <input type="password" class="form-control" id="inputPassword" placeholder="Password">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputPassword2" class="col-lg-2 control-label">Confirm Password</label>
+
                     <div class="col-lg-4">
                         <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
                     </div>
@@ -142,20 +154,58 @@
     </div>
 </section>
 
-<section id="about" class="container content-section text-center">
+<section id="about" class="container about-section text-center">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2">
             <h2>About Grayscale</h2>
-            <p class="section">Grayscale is a free Bootstrap 3 theme created by Start Bootstrap. It can be yours right now, simply download the template on <a href="http://startbootstrap.com/template-overviews/grayscale/">the preview page</a>. The theme is open source, and you can use it for any purpose, personal or commercial.</p>
-            <p class="section">This theme features stock photos by <a href="http://gratisography.com/">Gratisography</a> along with a custom Google Maps skin courtesy of <a href="http://snazzymaps.com/">Snazzy Maps</a>.</p>
-            <p class="section">Grayscale includes full HTML, CSS, and custom JavaScript files along with LESS files for easy customization.</p>
+
+            <p class="section">Grayscale is a free Bootstrap 3 theme created by Start Bootstrap. It can be yours right
+                now, simply download the template on <a href="http://startbootstrap.com/template-overviews/grayscale/">the
+                    preview page</a>. The theme is open source, and you can use it for any purpose, personal or
+                commercial.</p>
+
+            <p class="section">This theme features stock photos by <a href="http://gratisography.com/">Gratisography</a>
+                along with a custom Google Maps skin courtesy of <a href="http://snazzymaps.com/">Snazzy Maps</a>.</p>
+
+            <p class="section">Grayscale includes full HTML, CSS, and custom JavaScript files along with LESS files for
+                easy customization.</p>
         </div>
     </div>
 </section>
 
+
+<section id="contact" class="contact-section">
+    <div class="container contact-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>Contact Us</h2>
+
+                <p class="section">Feel free to email us to provide some feedback on our templates, give us suggestions
+                    for new templates and themes, or to just say hello!</p>
+
+                <p class="section"><a href="mailto:feedback@startbootstrap.com">feedback@startbootstrap.com</a>
+                </p>
+                <ul class="list-inline banner-social-buttons">
+                    <li>
+                        <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i
+                                class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><i
+                                class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/+Startbootstrap/posts" class="btn btn-default btn-lg"><i
+                                class="fa fa-google-plus fa-fw"></i> <span class="network-name">Google+</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
 <footer>
     <div class="container text-center">
-        <p>Copyright &copy; Your Website 2014</p>
+        <p>Copyright &copy; Symphodia 2015</p>
     </div>
 </footer>
 
@@ -164,7 +214,8 @@
 <script src="static/bower_components/angular-scroll/angular-scroll.min.js" type="text/javascript"></script>
 <script src="static/bower_components/angular-bootstrap/ui-bootstrap.min.js" type="text/javascript"></script>
 <script src="static/bower_components/lodash/lodash.min.js" type="text/javascript"></script>
-<script src="static/bower_components/angular-google-maps/dist/angular-google-maps.min.js" type="text/javascript"></script>
+<script src="static/bower_components/angular-google-maps/dist/angular-google-maps.min.js"
+        type="text/javascript"></script>
 <script src="js/app.js" type="text/javascript"></script>
 <script src="js/controllers.js" type="text/javascript"></script>
 <script src="js/services.js" type="text/javascript"></script>

@@ -36,6 +36,12 @@ p.section {
     line-height: 1.5;
 }
 
+p.footer {
+    margin: 25px 0 25px;
+    font-size: 18px;
+    line-height: 1.5;
+}
+
 @media(min-width:768px) {
     p.section {
         margin: 0 0 35px;
@@ -304,11 +310,8 @@ ul.banner-social-buttons {
 }
 
 footer {
-    padding: 50px 0;
-}
-
-footer p {
-    margin: 0;
+    background-color: #383838;
+    padding-top: 50px;
 }
 
 ::-moz-selection {
@@ -335,20 +338,15 @@ body {
     webkit-tap-highlight-color: rgba(255,255,255,.2);
 }
 
-.content-section {
-    padding-top: 100px;
-}
-
-@media(min-width:767px) {
-    .content-section {
-        padding-top: 250px;
-    }
-}
-
-.search-section {
+.about-section {
     padding-top: 50px;
+    padding-bottom: 50px;
 }
 
+.contact-section {
+    background-color: #383838;
+    padding-top: 10px;
+}
 
 .result-section {
     padding-top: 50px;
@@ -357,7 +355,8 @@ body {
 .signin-section {
     width: 100%;
     margin-top: 50px;
-    padding: 50px 0;
+    padding-top: 50px;
+    padding-bottom: 50px;
     color: #fff;
     background: url(../img/banner-bg.jpg) no-repeat center center scroll;
     background-color: #000;
@@ -376,9 +375,19 @@ body {
         padding-top: 100px;
     }
 
+    .about-section {
+        padding-top: 100px;
+        padding-bottom: 100px;
+    }
+
+    .contact-section {
+        padding-top: 20px;
+    }
+
     .signin-section {
         margin-top: 100px;
         padding-top: 100px;
+        padding-bottom: 100px;
     }
 }
 
