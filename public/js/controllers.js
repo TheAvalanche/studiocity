@@ -6,40 +6,35 @@ angular.module('studiocity')
             $scope.test = data;
         })
     })
-    .controller('loginCtrl', function ($rootScope, $scope, $http, $location) {
+    .controller('loginCtrl', function ($rootScope, $scope, $http, $location, $modalInstance) {
 
-        var authenticate = function (credentials, callback) {
+        var authenticate = function (credentials) {
 
             var headers = credentials ? {
-                authorization: "Basic "
-                + btoa(credentials.username + ":" + credentials.password)
+                authorization: "Basic " + btoa(credentials.username + ":" + credentials.password)
             } : {};
 
             $http.get('user', {headers: headers}).success(function (data) {
                 $rootScope.authenticated = !!data.name;
-                callback && callback();
+                $scope.error = false;
+                $modalInstance.close();
             }).error(function () {
                 $rootScope.authenticated = false;
-                callback && callback();
+                $scope.error = true;
             });
 
         };
 
-        authenticate();
         $scope.credentials = {};
         $scope.login = function () {
-            authenticate($scope.credentials, function () {
-                if ($rootScope.authenticated) {
-                    $location.path("/");
-                    $scope.error = false;
-                } else {
-                    $location.path("/login");
-                    $scope.error = true;
-                }
-            });
+            authenticate($scope.credentials);
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.close();
         };
     })
-    .controller("frontCtrl", function ($rootScope, $scope, $http) {
+    .controller("frontCtrl", function ($rootScope, $scope, $http, $modal) {
         $scope.logout = function() {
             $http.post('logout', {}).success(function() {
                 $rootScope.authenticated = false;
@@ -48,6 +43,9 @@ angular.module('studiocity')
                 $rootScope.authenticated = false;
             });
         };
+
+        $scope.totalItems = 100;
+        $scope.currentPage = 1;
 
         $scope.loadStudios = function(type, city) {
             $scope.studios = [{
@@ -195,4 +193,16 @@ angular.module('studiocity')
         };
 
         $scope.loadStudios();
+
+        $scope.login = function () {
+
+            $modal.open({
+                animation: true,
+                templateUrl: 'views/login.html',
+                controller: 'loginCtrl',
+                size: "sm",
+                windowClass: "modal-custom"
+            });
+
+        };
     });

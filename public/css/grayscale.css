@@ -146,6 +146,32 @@ a:focus {
     }
 }
 
+.pagination-custom li a,
+.pagination-custom li.disabled a,
+.pagination-custom li.disabled a:hover,
+.pagination-custom li.disabled a:focus {
+    text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    background-color: transparent;
+    margin-bottom: 0;
+    border: 1px solid #42dca3;
+    color: #42dca3;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.pagination-custom li a:hover,
+.pagination-custom li a:focus,
+.pagination-custom li.active a,
+.pagination-custom li.active a:hover,
+.pagination-custom li.active a:focus {
+    border: 1px solid #42dca3;
+    outline: 0;
+    color: #000;
+    background-color: #42dca3;
+}
+
 .intro {
     display: table;
     width: 100%;
@@ -405,4 +431,9 @@ body {
 
 .angular-google-map-container {
     height: 200px;
+}
+
+.modal-custom .modal-content {
+    background-color: black;
+    border: 1px solid #42dca3;
 }
