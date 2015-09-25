@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('studiocity')
-    .factory('testService', ['$http', function ($http) {
+    .factory('searchService', ['$http', function ($http) {
 
         return {
-            test: function() {
-                return $http.get("/test");
+            search: function() {
+                return $http.get("/search");
             }
         };
     }]);

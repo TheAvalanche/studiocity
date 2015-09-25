@@ -1,11 +1,6 @@
 'use strict';
 
 angular.module('studiocity')
-    .controller('homeCtrl', function ($scope, testService) {
-        testService.test().success(function (data) {
-            $scope.test = data;
-        })
-    })
     .controller('loginCtrl', function ($rootScope, $scope, $http, $location, $modalInstance) {
 
         var authenticate = function (credentials) {
@@ -16,6 +11,7 @@ angular.module('studiocity')
 
             $http.get('user', {headers: headers}).success(function (data) {
                 $rootScope.authenticated = !!data.name;
+                $rootScope.user = data.principal;
                 $scope.error = false;
                 $modalInstance.close();
             }).error(function () {
@@ -34,7 +30,7 @@ angular.module('studiocity')
             $modalInstance.close();
         };
     })
-    .controller("frontCtrl", function ($rootScope, $scope, $http, $modal) {
+    .controller("frontCtrl", function ($rootScope, $scope, $http, $modal, searchService) {
         $scope.logout = function() {
             $http.post('logout', {}).success(function() {
                 $rootScope.authenticated = false;
@@ -47,36 +43,13 @@ angular.module('studiocity')
         $scope.totalItems = 100;
         $scope.currentPage = 1;
 
-        $scope.loadStudios = function(type, city) {
-            $scope.studios = [{
-                id: 1,
-                name: "Studio 1",
-                logoUrl: "http://lorempixel.com/400/300/technics/1",
-                address: "Visku iela 13-55",
-                phone: "28272988",
-                workingHours: "24/7",
-                description: "The best studio ever in the city center",
-                map: {latitude: 45, longitude: -73}
-            },{
-                id: 2,
-                name: "Studio 2",
-                logoUrl: "http://lorempixel.com/400/300/technics/2",
-                address: "Mukusalas iela 13-55",
-                phone: "28272988",
-                workingHours: "24/7",
-                description: "The best studio ever in the city center",
-                map: {latitude: 45, longitude: -73}
-            },{
-                id: 3,
-                name: "Studio 3",
-                logoUrl: "http://lorempixel.com/400/300/technics/3",
-                address: "Krasta iela 13-55",
-                phone: "28272988",
-                workingHours: "24/7",
-                description: "The best studio ever in the city center",
-                map: {latitude: 45, longitude: -73}
-            }]
-        };
+        searchService.search().success(function (data) {
+            $scope.studios = data;
+            $scope.studios.forEach(function(item, i, arr) {
+                item.map = {latitude: item.latitude, longitude: item.longitude};
+            });
+        });
+
 
         var styleArray = [{
             "featureType": "water",
@@ -191,8 +164,6 @@ angular.module('studiocity')
             disableDefaultUI: true,
             styles: styleArray
         };
-
-        $scope.loadStudios();
 
         $scope.login = function () {
 

@@ -98,6 +98,10 @@ a:focus {
     color: #fff;
 }
 
+.navbar-custom a.salutation {
+    color: #42dca3;
+}
+
 .navbar-custom .nav li a {
     -webkit-transition: background .3s ease-in-out;
     -moz-transition: background .3s ease-in-out;

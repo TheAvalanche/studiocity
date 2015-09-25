@@ -41,6 +41,9 @@
                     <a du-smooth-scroll duration="2000" href="#page-top"></a>
                 </li>
                 <li ng-show="authenticated">
+                    <a href="" class="salutation">Hi, {{user.username}}</a>
+                </li>
+                <li ng-show="authenticated">
                     <a href="" ng-click="logout()">Logout</a>
                 </li>
                 <li ng-show="!authenticated">
@@ -80,11 +83,19 @@
         <form class="form-inline">
             <div class="form-group">
                 <label for="studio-type">Type</label>
-                <input type="text" class="form-control" id="studio-type" placeholder="Jane Doe">
+                <select id="studio-type" class="form-control">
+                    <option>All</option>
+                    <option>Rehearsal</option>
+                    <option>Recording</option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="city">City</label>
-                <input type="text" class="form-control" id="city" placeholder="jane.doe@example.com">
+                <select id="city" class="form-control">
+                    <option>Riga</option>
+                    <option>All</option>
+                    <option>Ventspils</option>
+                </select>
             </div>
             <button type="submit" class="btn btn-default">Search</button>
         </form>
@@ -107,11 +118,15 @@
                 <p class="section">{{studio.description}}</p>
             </div>
             <div class="col-lg-4 text-left">
-                <p><i class="fa fa-map-marker"></i> {{studio.address}}</p>
+                <p ng-if="studio.street"><i class="fa fa-map-marker"></i> {{studio.street}} {{studio.house}}</p>
 
-                <p><i class="fa fa-phone"></i> {{studio.phone}}</p>
+                <p ng-if="studio.phone"><i class="fa fa-phone"></i> {{studio.phone}}</p>
 
-                <p><i class="fa fa-clock-o"></i> {{studio.workingHours}}</p>
+                <p ng-if="studio.email"><i class="fa fa-envelope-o"></i> {{studio.email}}</p>
+
+                <p ng-if="studio.site"><i class="fa fa-globe"></i> <a ng-href="{{studio.site}}">{{studio.site}}</a></p>
+
+                <p ng-if="studio.workingHours"><i class="fa fa-clock-o"></i> {{studio.workingHours}}</p>
                 <ui-gmap-google-map center='studio.map' zoom='15' options="options">
                     <ui-gmap-marker coords="studio.map" idKey="studio.id"/>
                 </ui-gmap-google-map>

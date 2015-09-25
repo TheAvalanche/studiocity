@@ -9,19 +9,11 @@ angular
     ])
     .config(function($routeProvider, $httpProvider, uiGmapGoogleMapApiProvider) {
 
-        $routeProvider.when('/', {
-            templateUrl : 'views/home.html',
-            controller : 'homeCtrl'
-        }).when('/login', {
-            templateUrl : 'views/login.html',
-            controller : 'loginCtrl'
-        }).otherwise('/');
-
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
         uiGmapGoogleMapApiProvider.configure({
             //    key: 'your api key',
-            v: '3.20', //defaults to latest 3.X anyhow
+            v: '3.20',
             libraries: 'weather,geometry,visualization'
         });
 
@@ -30,6 +22,7 @@ angular
         $http.get('user').success(function(data) {
             if (data.name) {
                 $rootScope.authenticated = true;
+                $rootScope.user = data.principal;
             } else {
                 $rootScope.authenticated = false;
             }
