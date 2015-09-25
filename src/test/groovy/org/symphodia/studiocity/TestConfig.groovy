@@ -1,4 +1,4 @@
-package org.symphodia.studiocity.repository
+package org.symphodia.studiocity
 
 import com.mongodb.Mongo
 import cz.jirutka.spring.embedmongo.EmbeddedMongoBuilder
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Profile
 
 @Profile("test")
 @Configuration
-class MongoTestConfig {
+class TestConfig {
 
     @Bean
     public Mongo mongo() throws IOException {

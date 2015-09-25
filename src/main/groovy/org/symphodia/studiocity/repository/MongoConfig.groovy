@@ -7,7 +7,6 @@ import org.springframework.data.mongodb.config.AbstractMongoConfiguration
 
 @Profile("prod")
 @Configuration
-//@EnableMongoRepositories
 class MongoConfig extends AbstractMongoConfiguration {
 
     String getDatabaseName() {
