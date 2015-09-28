@@ -148,26 +148,26 @@
                     <label for="inputEmail" class="col-lg-2 control-label">Email</label>
 
                     <div class="col-lg-4">
-                        <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                        <input type="email" class="form-control" id="inputEmail" ng-model="newCredentials.email" placeholder="Email">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputPassword" class="col-lg-2 control-label">Password</label>
 
                     <div class="col-lg-4">
-                        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                        <input type="password" class="form-control" id="inputPassword" ng-model="newCredentials.password" placeholder="Password">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputPassword2" class="col-lg-2 control-label">Confirm Password</label>
+                    <label for="inputConfirmPassword" class="col-lg-2 control-label">Confirm Password</label>
 
                     <div class="col-lg-4">
-                        <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+                        <input type="password" class="form-control" id="inputConfirmPassword" ng-model="newCredentials.confirmPassword" placeholder="Password">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-lg-4 col-lg-offset-2">
-                        <button type="submit" class="btn btn-default">Sign in</button>
+                        <button type="submit" class="btn btn-default" ng-click="signIn()">Sign in</button>
                     </div>
                 </div>
             </form>

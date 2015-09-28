@@ -5,7 +5,10 @@ angular.module('studiocity')
 
         return {
             search: function() {
-                return $http.get("/search");
+                return $http.get("/rest/search");
+            },
+            count: function() {
+                return $http.get("/rest/count");
             }
         };
     }]);

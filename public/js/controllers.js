@@ -9,7 +9,7 @@ angular.module('studiocity')
                 authorization: "Basic " + btoa(credentials.username + ":" + credentials.password)
             } : {};
 
-            $http.get('user', {headers: headers}).success(function (data) {
+            $http.get('/auth/user', {headers: headers}).success(function (data) { //todo separate logic
                 $rootScope.authenticated = !!data.name;
                 $rootScope.user = data.principal;
                 $scope.error = false;
@@ -31,7 +31,7 @@ angular.module('studiocity')
         };
     })
     .controller("frontCtrl", function ($rootScope, $scope, $http, $modal, searchService) {
-        $scope.logout = function() {
+        $scope.logout = function() { //todo separate logic and fix csrf bug
             $http.post('logout', {}).success(function() {
                 $rootScope.authenticated = false;
                 $location.path("/");
@@ -40,7 +40,15 @@ angular.module('studiocity')
             });
         };
 
-        $scope.totalItems = 100;
+        $scope.newCredentials = {};
+        $scope.signIn = function() { //todo more serious implementation
+            $http.post('/auth/signIn', $scope.newCredentials)
+        };
+
+        searchService.count().success(function (data) {
+            $scope.totalItems = data;
+        });
+
         $scope.currentPage = 1;
 
         searchService.search().success(function (data) {
@@ -51,7 +59,7 @@ angular.module('studiocity')
         });
 
 
-        var styleArray = [{
+        var styleArray = [{ //todo move away
             "featureType": "water",
             "elementType": "geometry",
             "stylers": [{

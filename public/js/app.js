@@ -19,7 +19,7 @@ angular
 
     }).run(["$rootScope", "$http", function($rootScope, $http) {
 
-        $http.get('user').success(function(data) {
+        $http.get('/auth/user').success(function(data) {
             if (data.name) {
                 $rootScope.authenticated = true;
                 $rootScope.user = data.principal;
