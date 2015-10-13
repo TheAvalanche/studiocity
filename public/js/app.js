@@ -8,6 +8,13 @@ angular
         'uiGmapgoogle-maps'
     ])
     .config(function($routeProvider, $httpProvider, uiGmapGoogleMapApiProvider) {
+        $routeProvider.when('/', {
+            templateUrl : 'views/front.html',
+            controller : 'frontCtrl'
+        }).when('/profile', {
+            templateUrl : 'views/profile.html',
+            controller : 'profileCtrl'
+        }).otherwise('/');
 
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 

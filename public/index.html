@@ -20,9 +20,9 @@
     </style>
 </head>
 
-<body ng-controller="frontCtrl" ng-cloak class="ng-cloak" id="page-top" data-spy="scroll"
+<body ng-cloak class="ng-cloak" id="page-top" data-spy="scroll"
       data-target=".navbar-fixed-top">
-<nav collapse-on-scroll class="navbar navbar-custom navbar-fixed-top" role="navigation">
+<nav  ng-controller="menuCtrl" collapse-on-scroll class="navbar navbar-custom navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" ng-init="navbarCollapsed=true"
@@ -41,7 +41,7 @@
                     <a du-smooth-scroll duration="2000" href="#page-top"></a>
                 </li>
                 <li ng-show="authenticated">
-                    <a href="" class="salutation">Hi, {{user.username}}</a>
+                    <a href="#/profile" class="salutation">Hi, {{user.username}}</a>
                 </li>
                 <li ng-show="authenticated">
                     <a href="" ng-click="logout()">Logout</a>
@@ -59,171 +59,7 @@
         </div>
     </div>
 </nav>
-
-<header class="intro">
-    <div class="intro-body">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <h1 class="brand-heading">StudioCity</h1>
-
-                    <p class="intro-text">The best way to find the place for your creativity.<br>Created by Symphodia.
-                    </p>
-                    <a du-smooth-scroll duration="2000" href="#search" class="btn btn-circle page-scroll">
-                        <i class="fa fa-angle-double-down animated"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-<section id="search" class="container search-section text-center">
-    <div class="row">
-        <form class="form-inline">
-            <div class="form-group">
-                <label for="studio-type">Type</label>
-                <select id="studio-type" class="form-control">
-                    <option>All</option>
-                    <option>Rehearsal</option>
-                    <option>Recording</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="city">City</label>
-                <select id="city" class="form-control">
-                    <option>Riga</option>
-                    <option>All</option>
-                    <option>Ventspils</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-default">Search</button>
-        </form>
-    </div>
-</section>
-
-<section id="result" class="container result-section">
-    <div class="text-center">
-        <pagination class="pagination-custom" total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" previous-text="&lsaquo;" next-text="&rsaquo;"></pagination>
-    </div>
-    <div class="row result-article" ng-repeat="studio in studios">
-        <article>
-            <div class="col-lg-12"><h3 class="studio-header">{{studio.name}}</h3></div>
-            <div class="col-lg-4 text-left">
-                <figure>
-                    <img ng-src="{{studio.logoUrl}}" class="img-responsive"/>
-                </figure>
-            </div>
-            <div class="col-lg-4 text-left">
-                <p class="section">{{studio.description}}</p>
-            </div>
-            <div class="col-lg-4 text-left">
-                <p ng-if="studio.street"><i class="fa fa-map-marker"></i> {{studio.street}} {{studio.house}}</p>
-
-                <p ng-if="studio.phone"><i class="fa fa-phone"></i> {{studio.phone}}</p>
-
-                <p ng-if="studio.email"><i class="fa fa-envelope-o"></i> {{studio.email}}</p>
-
-                <p ng-if="studio.site"><i class="fa fa-globe"></i> <a ng-href="{{studio.site}}">{{studio.site}}</a></p>
-
-                <p ng-if="studio.workingHours"><i class="fa fa-clock-o"></i> {{studio.workingHours}}</p>
-                <ui-gmap-google-map center='studio.map' zoom='15' options="options">
-                    <ui-gmap-marker coords="studio.map" idKey="studio.id"/>
-                </ui-gmap-google-map>
-            </div>
-        </article>
-    </div>
-    <div class="text-center">
-        <pagination class="pagination-custom" total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" previous-text="&lsaquo;" next-text="&rsaquo;"></pagination>
-    </div>
-</section>
-
-<section id="signin" class="container signin-section">
-    <div class="row">
-        <div class="col-lg-6 col-lg-offset-6">
-            <h2 class="col-lg-offset-2">Sign In</h2>
-
-            <form class="form-horizontal">
-                <div class="form-group">
-                    <label for="inputEmail" class="col-lg-2 control-label">Email</label>
-
-                    <div class="col-lg-4">
-                        <input type="email" class="form-control" id="inputEmail" ng-model="newCredentials.email" placeholder="Email">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword" class="col-lg-2 control-label">Password</label>
-
-                    <div class="col-lg-4">
-                        <input type="password" class="form-control" id="inputPassword" ng-model="newCredentials.password" placeholder="Password">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputConfirmPassword" class="col-lg-2 control-label">Confirm Password</label>
-
-                    <div class="col-lg-4">
-                        <input type="password" class="form-control" id="inputConfirmPassword" ng-model="newCredentials.confirmPassword" placeholder="Password">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-lg-4 col-lg-offset-2">
-                        <button type="submit" class="btn btn-default" ng-click="signIn()">Sign in</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</section>
-
-<section id="about" class="container about-section text-center">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2">
-            <h2>About Grayscale</h2>
-
-            <p class="section">Grayscale is a free Bootstrap 3 theme created by Start Bootstrap. It can be yours right
-                now, simply download the template on <a href="http://startbootstrap.com/template-overviews/grayscale/">the
-                    preview page</a>. The theme is open source, and you can use it for any purpose, personal or
-                commercial.</p>
-
-            <p class="section">This theme features stock photos by <a href="http://gratisography.com/">Gratisography</a>
-                along with a custom Google Maps skin courtesy of <a href="http://snazzymaps.com/">Snazzy Maps</a>.</p>
-
-            <p class="section">Grayscale includes full HTML, CSS, and custom JavaScript files along with LESS files for
-                easy customization.</p>
-        </div>
-    </div>
-</section>
-
-
-<section id="contact" class="contact-section">
-    <div class="container contact-section text-center">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2">
-                <h2>Contact Us</h2>
-
-                <p class="section">Feel free to email us to provide some feedback on our templates, give us suggestions
-                    for new templates and themes, or to just say hello!</p>
-
-                <p class="section"><a href="mailto:feedback@startbootstrap.com">feedback@startbootstrap.com</a>
-                </p>
-                <ul class="list-inline banner-social-buttons">
-                    <li>
-                        <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i
-                                class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><i
-                                class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
-                    </li>
-                    <li>
-                        <a href="https://plus.google.com/+Startbootstrap/posts" class="btn btn-default btn-lg"><i
-                                class="fa fa-google-plus fa-fw"></i> <span class="network-name">Google+</span></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
+<ng-view></ng-view>
 <footer>
     <div class="container text-center">
         <p>Copyright &copy; Symphodia 2015</p>

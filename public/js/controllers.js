@@ -30,7 +30,7 @@ angular.module('studiocity')
             $modalInstance.close();
         };
     })
-    .controller("frontCtrl", function ($rootScope, $scope, $http, $modal, searchService) {
+    .controller("menuCtrl", function($rootScope, $scope, $http, $modal) {
         $scope.logout = function() { //todo separate logic and fix csrf bug
             $http.post('logout', {}).success(function() {
                 $rootScope.authenticated = false;
@@ -40,6 +40,19 @@ angular.module('studiocity')
             });
         };
 
+        $scope.login = function () {
+
+            $modal.open({
+                animation: true,
+                templateUrl: 'views/login.html',
+                controller: 'loginCtrl',
+                size: "sm",
+                windowClass: "modal-custom"
+            });
+
+        };
+    })
+    .controller("frontCtrl", function ($scope, $http, searchService) {
         $scope.newCredentials = {};
         $scope.signIn = function() { //todo more serious implementation
             $http.post('/auth/signIn', $scope.newCredentials)
@@ -172,16 +185,8 @@ angular.module('studiocity')
             disableDefaultUI: true,
             styles: styleArray
         };
+    })
+    .controller("profileCtrl", function ($scope) {
+        $scope.newStudio = {}
 
-        $scope.login = function () {
-
-            $modal.open({
-                animation: true,
-                templateUrl: 'views/login.html',
-                controller: 'loginCtrl',
-                size: "sm",
-                windowClass: "modal-custom"
-            });
-
-        };
     });
