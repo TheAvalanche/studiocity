@@ -22,7 +22,7 @@ class StudioRepositoryTest extends Specification {
     @Autowired
     UserRepository userRepository
 
-    def "init test groovy"() {
+    def "test studio repository"() {
         setup:
         studioRepository.save(new Studio(name: "Test Studio"))
         when:
@@ -33,17 +33,17 @@ class StudioRepositoryTest extends Specification {
         studio.name == "Test Studio"
     }
 
-    def "init  groovy"() {
+    def "test user repository"() {
         setup:
-        userRepository.save(new User())
-        def saved = studioRepository.save(new Studio(name: "Test Studio"))
-        def user = userRepository.findAll()[0]
-        user.studios << saved
+        def savedUser = userRepository.save(new User(email: "test@test.com"))
+        def savedStudio = studioRepository.save(new Studio(name: "Test Studio"))
         when:
-        def count = studioRepository.count()
-        def studio = studioRepository.findAll()[0]
+        savedUser.studios << savedStudio
+        userRepository.save(savedUser)
+        def count = userRepository.count()
+        def user = userRepository.findAll()[0]
         then:
         count == 1
-        studio.name == "Test Studio"
+        user.studios[0].name == "Test Studio"
     }
 }

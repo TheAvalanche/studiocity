@@ -186,7 +186,10 @@ angular.module('studiocity')
             styles: styleArray
         };
     })
-    .controller("profileCtrl", function ($scope) {
-        $scope.newStudio = {}
+    .controller("profileCtrl", function ($scope, studioService) {
+        $scope.newStudio = {};
 
+        $scope.save = function(newStudio) {
+            studioService.save(newStudio);
+        }
     });

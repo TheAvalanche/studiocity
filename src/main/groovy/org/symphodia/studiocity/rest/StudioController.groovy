@@ -1,22 +1,32 @@
 package org.symphodia.studiocity.rest
-
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.mongodb.repository.MongoRepository
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
 import org.symphodia.studiocity.model.Studio
+import org.symphodia.studiocity.model.User
+import org.symphodia.studiocity.repository.StudioRepository
+import org.symphodia.studiocity.repository.UserRepository
+import org.symphodia.studiocity.security.SecurityUser
 
 @RestController
 @RequestMapping("studio")
 class StudioController {
 
     @Autowired
-    MongoRepository mongoRepository
+    StudioRepository studioRepository
+
+    @Autowired
+    UserRepository userRepository
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    void save(@RequestBody Studio studio) {
-        mongoRepository.save(studio)
+    void save(@AuthenticationPrincipal SecurityUser principal, @RequestBody Studio studio) {
+        User savedUser = principal.user
+        Studio savedStudio = studioRepository.save(studio)
+
+        savedUser.studios << savedStudio
+        userRepository.save(savedUser)
     }
 }

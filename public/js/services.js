@@ -11,4 +11,11 @@ angular.module('studiocity')
                 return $http.get("/rest/count");
             }
         };
-    }]);
+    }])
+    .factory('studioService', function ($http) {
+        return {
+            save: function(studio) {
+                return $http.post("/studio/save", studio)
+            }
+        }
+    });

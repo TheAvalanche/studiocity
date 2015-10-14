@@ -13,5 +13,5 @@ class User {
     String password
     Role role = Role.USER
     @DBRef
-    List<Studio> studios
+    List<Studio> studios = new ArrayList<>()
 }
