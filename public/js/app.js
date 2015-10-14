@@ -9,11 +9,14 @@ angular
     ])
     .config(function($routeProvider, $httpProvider, uiGmapGoogleMapApiProvider) {
         $routeProvider.when('/', {
-            templateUrl : 'views/front.html',
-            controller : 'frontCtrl'
+            templateUrl: 'views/front.html',
+            controller: 'frontCtrl'
         }).when('/profile', {
-            templateUrl : 'views/profile.html',
-            controller : 'profileCtrl'
+            templateUrl: 'views/profile.html',
+            controller: 'profileCtrl'
+        }).when('/studios', {
+            templateUrl: 'views/studios.html',
+            controller: 'studiosCtrl'
         }).otherwise('/');
 
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';

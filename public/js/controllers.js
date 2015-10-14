@@ -30,12 +30,12 @@ angular.module('studiocity')
             $modalInstance.close();
         };
     })
-    .controller("menuCtrl", function($rootScope, $scope, $http, $modal) {
-        $scope.logout = function() { //todo separate logic and fix csrf bug
+    .controller("menuCtrl", function ($rootScope, $scope, $http, $modal, $location) {
+        $scope.logout = function () { //todo separate logic and fix csrf bug
             $http.post('logout', {}).success(function() {
                 $rootScope.authenticated = false;
                 $location.path("/");
-            }).error(function() {
+            }).error(function () {
                 $rootScope.authenticated = false;
             });
         };
@@ -54,8 +54,8 @@ angular.module('studiocity')
     })
     .controller("frontCtrl", function ($scope, $http, searchService) {
         $scope.newCredentials = {};
-        $scope.signIn = function() { //todo more serious implementation
-            $http.post('/auth/signIn', $scope.newCredentials)
+        $scope.signIn = function () { //todo more serious implementation
+            $http.post('/auth/signIn', $scope.newCredentials);
         };
 
         searchService.count().success(function (data) {
@@ -66,7 +66,7 @@ angular.module('studiocity')
 
         searchService.search().success(function (data) {
             $scope.studios = data;
-            $scope.studios.forEach(function(item, i, arr) {
+            $scope.studios.forEach(function (item) {
                 item.map = {latitude: item.latitude, longitude: item.longitude};
             });
         });
@@ -187,9 +187,134 @@ angular.module('studiocity')
         };
     })
     .controller("profileCtrl", function ($scope, studioService) {
+
+    })
+    .controller("studiosCtrl", function ($scope, studioService) {
+        $scope.studios = [];
         $scope.newStudio = {};
 
-        $scope.save = function(newStudio) {
+        $scope.save = function (newStudio) {
             studioService.save(newStudio);
-        }
+        };
+
+        studioService.findByCurrentUser().success(function (data) {
+            $scope.studios = data;
+            $scope.studios.forEach(function (item) {
+                item.map = {latitude: item.latitude, longitude: item.longitude};
+            });
+        });
+
+        var styleArray = [{ //todo move away
+            "featureType": "water",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#000000"
+            }, {
+                "lightness": 17
+            }]
+        }, {
+            "featureType": "landscape",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#000000"
+            }, {
+                "lightness": 20
+            }]
+        }, {
+            "featureType": "road.highway",
+            "elementType": "geometry.fill",
+            "stylers": [{
+                "color": "#000000"
+            }, {
+                "lightness": 17
+            }]
+        }, {
+            "featureType": "road.highway",
+            "elementType": "geometry.stroke",
+            "stylers": [{
+                "color": "#000000"
+            }, {
+                "lightness": 29
+            }, {
+                "weight": 0.2
+            }]
+        }, {
+            "featureType": "road.arterial",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#000000"
+            }, {
+                "lightness": 18
+            }]
+        }, {
+            "featureType": "road.local",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#000000"
+            }, {
+                "lightness": 16
+            }]
+        }, {
+            "featureType": "poi",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#000000"
+            }, {
+                "lightness": 21
+            }]
+        }, {
+            "elementType": "labels.text.stroke",
+            "stylers": [{
+                "visibility": "on"
+            }, {
+                "color": "#000000"
+            }, {
+                "lightness": 16
+            }]
+        }, {
+            "elementType": "labels.text.fill",
+            "stylers": [{
+                "saturation": 36
+            }, {
+                "color": "#000000"
+            }, {
+                "lightness": 40
+            }]
+        }, {
+            "elementType": "labels.icon",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        }, {
+            "featureType": "transit",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#000000"
+            }, {
+                "lightness": 19
+            }]
+        }, {
+            "featureType": "administrative",
+            "elementType": "geometry.fill",
+            "stylers": [{
+                "color": "#000000"
+            }, {
+                "lightness": 20
+            }]
+        }, {
+            "featureType": "administrative",
+            "elementType": "geometry.stroke",
+            "stylers": [{
+                "color": "#000000"
+            }, {
+                "lightness": 17
+            }, {
+                "weight": 1.2
+            }]
+        }];
+
+        $scope.options = {
+            disableDefaultUI: true,
+            styles: styleArray
+        };
     });

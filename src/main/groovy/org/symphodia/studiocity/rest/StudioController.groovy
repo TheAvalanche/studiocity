@@ -29,4 +29,13 @@ class StudioController {
         savedUser.studios << savedStudio
         userRepository.save(savedUser)
     }
+
+    @RequestMapping(value = "/findByCurrentUser")
+    List<Studio> findByCurrentUser(@AuthenticationPrincipal SecurityUser principal) {
+        User savedUser = principal.user
+
+        savedUser.studios
+    }
+
+
 }

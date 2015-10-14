@@ -15,7 +15,10 @@ angular.module('studiocity')
     .factory('studioService', function ($http) {
         return {
             save: function(studio) {
-                return $http.post("/studio/save", studio)
+                return $http.post("/studio/save", studio);
+            },
+            findByCurrentUser : function () {
+                return $http.get("/studio/findByCurrentUser");
             }
-        }
+        };
     });
