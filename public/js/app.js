@@ -3,11 +3,13 @@
 angular
     .module('studiocity', [
         'ngRoute',
+        'ngCookies',
         'duScroll',
         'ui.bootstrap',
-        'uiGmapgoogle-maps'
+        'uiGmapgoogle-maps',
+        'flow'
     ])
-    .config(function($routeProvider, $httpProvider, uiGmapGoogleMapApiProvider) {
+    .config(function ($routeProvider, $httpProvider, uiGmapGoogleMapApiProvider, flowFactoryProvider) {
         $routeProvider.when('/', {
             templateUrl: 'views/front.html',
             controller: 'frontCtrl'
@@ -26,6 +28,18 @@ angular
             v: '3.20',
             libraries: 'weather,geometry,visualization'
         });
+
+        flowFactoryProvider.defaults = {
+            target: '/upload/image',
+            headers: {
+                "X-Requested-With" : 'XMLHttpRequest'
+            },
+            permanentErrors: [404, 500, 501],
+            maxChunkRetries: 1,
+            chunkRetryInterval: 5000,
+            simultaneousUploads: 4,
+            singleFile: true
+        };
 
     }).run(["$rootScope", "$http", function($rootScope, $http) {
 

@@ -46,4 +46,21 @@ class StudioRepositoryTest extends Specification {
         count == 1
         user.studios[0].name == "Test Studio"
     }
+
+    def "test user repository delete"() {
+        setup:
+        def savedUser = userRepository.save(new User(email: "test@test.com"))
+        def savedStudio = studioRepository.save(new Studio(name: "Test Studio"))
+        savedUser.studios << savedStudio
+        userRepository.save(savedUser)
+        when:
+        savedUser.studios.remove(savedStudio)
+        userRepository.save(savedUser)
+        studioRepository.delete(savedStudio)
+        def studioCount = studioRepository.count()
+        def user = userRepository.findAll()[0]
+        then:
+        studioCount == 0
+        user.studios.size() == 0
+    }
 }

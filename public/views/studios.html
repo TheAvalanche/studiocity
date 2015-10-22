@@ -1,97 +1,65 @@
-<header class="intro">
-    <div class="intro-body">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <h1 class="brand-heading">StudioCity</h1>
+<nav  ng-controller="menuCtrl" class="navbar navbar-custom navbar-fixed-top top-nav-collapse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" ng-init="navbarCollapsed=true"
+                    ng-click="navbarCollapsed = !navbarCollapsed" data-toggle="collapse"
+                    data-target=".navbar-main-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+            <a du-smooth-scroll duration="2000" class="navbar-brand" href="#page-top">
+                <i class="fa fa-headphones"></i> <span class="light">Studio</span> city
+            </a>
+        </div>
 
-                    <p class="intro-text">The best way to find the place for your creativity.<br>Created by Symphodia.
-                    </p>
-                    <a du-smooth-scroll duration="2000" href="#search" class="btn btn-circle page-scroll">
-                        <i class="fa fa-angle-double-down animated"></i>
-                    </a>
-                </div>
-            </div>
+        <div class="collapse navbar-collapse navbar-right navbar-main-collapse" collapse="navbarCollapsed">
+            <ul class="nav navbar-nav">
+                <li class="hidden">
+                    <a du-smooth-scroll duration="2000" href="#page-top"></a>
+                </li>
+                <li ng-show="authenticated">
+                    <a href="#/profile" class="salutation">Hi, {{user.username}}</a>
+                </li>
+                <li ng-show="authenticated">
+                    <a href="#/studios">My Studios</a>
+                </li>
+                <li ng-show="authenticated">
+                    <a href="" ng-click="logout()">Logout</a>
+                </li>
+                <li ng-show="!authenticated">
+                    <a href="" ng-click="login()">Login</a>
+                </li>
+                <li du-scrollspy="signin" offset="200" ng-show="!authenticated">
+                    <a du-smooth-scroll duration="2000" href="#signin" ng-click="navbarCollapsed = true">Sign In</a>
+                </li>
+                <li du-scrollspy="about" offset="200">
+                    <a du-smooth-scroll duration="2000" href="#about" ng-click="navbarCollapsed = true">About</a>
+                </li>
+            </ul>
         </div>
     </div>
-</header>
+</nav>
 
-<section class="container">
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label for="studioName" class="col-lg-2 col-lg-offset-2 control-label">Name</label>
-            <div class="col-lg-6">
-                <input type="text" class="form-control" id="studioName" ng-model="newStudio.name">
-            </div>
+<section class="container" style="padding-top: 70px;">
+    <div class="row">
+        <div class="col-md-2">
+            <button type="button" class="btn btn-primary" ng-click="editStudio()">
+                <span class="fa fa-plus"></span> Add New
+            </button>
         </div>
-        <div class="form-group">
-            <label for="studioDescription" class="col-lg-2 col-lg-offset-2 control-label">Description</label>
-            <div class="col-lg-6">
-                <textarea rows="5" class="form-control" id="studioDescription" ng-model="newStudio.description"></textarea>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="studioStreet" class="col-lg-2 col-lg-offset-2 control-label">Street</label>
-            <div class="col-lg-6">
-                <input type="text" class="form-control" id="studioStreet" ng-model="newStudio.street">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="studioHouse" class="col-lg-2 col-lg-offset-2 control-label">House</label>
-            <div class="col-lg-2">
-                <input type="text" class="form-control" id="studioHouse" ng-model="newStudio.house">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="studioIndex" class="col-lg-2 col-lg-offset-2 control-label">Index</label>
-            <div class="col-lg-2">
-                <input type="text" class="form-control" id="studioIndex" ng-model="newStudio.index">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="studioPhone" class="col-lg-2 col-lg-offset-2 control-label">Phone</label>
-            <div class="col-lg-4">
-                <input type="text" class="form-control" id="studioPhone" ng-model="newStudio.phone">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="studioEmail" class="col-lg-2 col-lg-offset-2 control-label">Email</label>
-            <div class="col-lg-4">
-                <input type="text" class="form-control" id="studioEmail" ng-model="newStudio.email">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="studioSite" class="col-lg-2 col-lg-offset-2 control-label">Site</label>
-            <div class="col-lg-6">
-                <input type="text" class="form-control" id="studioSite" ng-model="newStudio.site">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="studioWorkingHours" class="col-lg-2 col-lg-offset-2 control-label">Working Hours</label>
-            <div class="col-lg-6">
-                <input type="text" class="form-control" id="studioWorkingHours" ng-model="newStudio.workingHours">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="studioLongitude" class="col-lg-2 col-lg-offset-2 control-label">Longitude</label>
-            <div class="col-lg-2">
-                <input type="text" class="form-control" id="studioLongitude" ng-model="newStudio.longitude">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="studioLatitude" class="col-lg-2 col-lg-offset-2 control-label">Latitude</label>
-            <div class="col-lg-2">
-                <input type="text" class="form-control" id="studioLatitude" ng-model="newStudio.latitude">
-            </div>
-        </div>
-        <button type="submit" class="btn btn-default" ng-click="save(newStudio)">Submit</button>
-    </form>
-</section>
-
-<section class="container">
+    </div>
     <div class="row result-article" ng-repeat="studio in studios">
         <article>
-            <div class="col-lg-12"><h3 class="studio-header">{{studio.name}}</h3></div>
+            <div class="col-lg-12">
+                <button type="button" class="btn btn-danger pull-right"
+                        ng-click="removeStudio(studio)">
+                    <span class="fa fa-trash-o"></span>
+                </button>
+                <button type="button" class="btn btn-primary pull-right"
+                        ng-click="editStudio(studio)">
+                    <span class="fa fa-pencil"></span>
+                </button>
+                <h3 class="studio-header">{{studio.name}}</h3>
+            </div>
             <div class="col-lg-4 text-left">
                 <figure>
                     <img ng-src="{{studio.logoUrl}}" class="img-responsive"/>

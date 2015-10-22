@@ -30,6 +30,18 @@ class StudioController {
         userRepository.save(savedUser)
     }
 
+    @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    void remove(@AuthenticationPrincipal SecurityUser principal, @RequestBody Studio studio) {
+        println "to remove"
+        User savedUser = principal.user
+
+        savedUser.studios.remove(studio)
+        userRepository.save(savedUser)
+
+        studioRepository.delete(studio)
+    }
+
+
     @RequestMapping(value = "/findByCurrentUser")
     List<Studio> findByCurrentUser(@AuthenticationPrincipal SecurityUser principal) {
         User savedUser = principal.user

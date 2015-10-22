@@ -4,9 +4,11 @@
     "bootstrap": "~3.3",
     "angular": "~1.4",
     "angular-route": "~1.4",
+    "angular-cookies": "~1.4",
     "fontawesome": "~4.4",
     "angular-scroll": "~0.7",
     "angular-bootstrap": "~0.13",
-    "ngmap": "~1.13"
+    "ngmap": "~1.13",
+    "ng-flow": "~2.6"
   }
 }

@@ -1,3 +1,44 @@
+<nav  ng-controller="menuCtrl" collapse-on-scroll class="navbar navbar-custom navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" ng-init="navbarCollapsed=true"
+                    ng-click="navbarCollapsed = !navbarCollapsed" data-toggle="collapse"
+                    data-target=".navbar-main-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+            <a du-smooth-scroll duration="2000" class="navbar-brand" href="#page-top">
+                <i class="fa fa-headphones"></i> <span class="light">Studio</span> city
+            </a>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-right navbar-main-collapse" collapse="navbarCollapsed">
+            <ul class="nav navbar-nav">
+                <li class="hidden">
+                    <a du-smooth-scroll duration="2000" href="#page-top"></a>
+                </li>
+                <li ng-show="authenticated">
+                    <a href="#/profile" class="salutation">Hi, {{user.username}}</a>
+                </li>
+                <li ng-show="authenticated">
+                    <a href="#/studios">My Studios</a>
+                </li>
+                <li ng-show="authenticated">
+                    <a href="" ng-click="logout()">Logout</a>
+                </li>
+                <li ng-show="!authenticated">
+                    <a href="" ng-click="login()">Login</a>
+                </li>
+                <li du-scrollspy="signin" offset="200" ng-show="!authenticated">
+                    <a du-smooth-scroll duration="2000" href="#signin" ng-click="navbarCollapsed = true">Sign In</a>
+                </li>
+                <li du-scrollspy="about" offset="200">
+                    <a du-smooth-scroll duration="2000" href="#about" ng-click="navbarCollapsed = true">About</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 <header class="intro">
     <div class="intro-body">
         <div class="container">

@@ -1,0 +1,100 @@
+<div class="modal-header">
+    <h3 class="modal-title">Edit Studio</h3>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal" flow-init="flowOptions"
+          flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"
+          flow-files-submitted="$flow.upload()">
+        <div class="form-group">
+            <label for="studioName" class="col-lg-2 col-lg-offset-2 control-label">Name</label>
+            <div class="col-lg-6">
+                <input type="text" class="form-control" id="studioName" ng-model="studio.name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="studioDescription" class="col-lg-2 col-lg-offset-2 control-label">Description</label>
+            <div class="col-lg-6">
+                <textarea rows="5" class="form-control" id="studioDescription" ng-model="studio.description"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="studioCity" class="col-lg-2 col-lg-offset-2 control-label">City</label>
+            <div class="col-lg-6">
+                <input type="text" class="form-control" id="studioCity" ng-model="studio.city">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="studioStreet" class="col-lg-2 col-lg-offset-2 control-label">Street</label>
+            <div class="col-lg-6">
+                <input type="text" class="form-control" id="studioStreet" ng-model="studio.street">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="studioHouse" class="col-lg-2 col-lg-offset-2 control-label">House</label>
+            <div class="col-lg-2">
+                <input type="text" class="form-control" id="studioHouse" ng-model="studio.house">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="studioIndex" class="col-lg-2 col-lg-offset-2 control-label">Index</label>
+            <div class="col-lg-2">
+                <input type="text" class="form-control" id="studioIndex" ng-model="studio.index">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="studioPhone" class="col-lg-2 col-lg-offset-2 control-label">Phone</label>
+            <div class="col-lg-4">
+                <input type="text" class="form-control" id="studioPhone" ng-model="studio.phone">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="studioEmail" class="col-lg-2 col-lg-offset-2 control-label">Email</label>
+            <div class="col-lg-4">
+                <input type="text" class="form-control" id="studioEmail" ng-model="studio.email">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="studioSite" class="col-lg-2 col-lg-offset-2 control-label">Site</label>
+            <div class="col-lg-6">
+                <input type="text" class="form-control" id="studioSite" ng-model="studio.site">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="studioWorkingHours" class="col-lg-2 col-lg-offset-2 control-label">Working Hours</label>
+            <div class="col-lg-6">
+                <input type="text" class="form-control" id="studioWorkingHours" ng-model="studio.workingHours">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="studioLongitude" class="col-lg-2 col-lg-offset-2 control-label">Longitude</label>
+            <div class="col-lg-2">
+                <input type="text" class="form-control" id="studioLongitude" ng-model="studio.longitude">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="studioLatitude" class="col-lg-2 col-lg-offset-2 control-label">Latitude</label>
+            <div class="col-lg-2">
+                <input type="text" class="form-control" id="studioLatitude" ng-model="studio.latitude">
+            </div>
+        </div>
+        <div class="form-group">
+            <div>
+                <div class="thumbnail" ng-hide="$flow.files.length">
+                    <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image" />
+                </div>
+                <div class="thumbnail" ng-show="$flow.files.length">
+                    <img flow-img="$flow.files[0]" />
+                </div>
+                <div>
+                    <span class="btn" ng-hide="$flow.files.length" flow-btn flow-attrs="{accept:'image/*'}">Select image</span>
+                    <span class="btn" ng-show="$flow.files.length" flow-btn flow-attrs="{accept:'image/*'}">Change</span>
+                    <span class="btn btn-danger" ng-show="$flow.files.length" ng-click="$flow.cancel()">Remove</span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default btn-primary" type="button" ng-click="save()">Save</button>
+    <button class="btn btn-default btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>

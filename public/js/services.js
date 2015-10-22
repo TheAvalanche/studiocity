@@ -14,8 +14,11 @@ angular.module('studiocity')
     }])
     .factory('studioService', function ($http) {
         return {
-            save: function(studio) {
+            save: function (studio) {
                 return $http.post("/studio/save", studio);
+            },
+            remove: function (studio) {
+                return $http.post("/studio/remove", studio);
             },
             findByCurrentUser : function () {
                 return $http.get("/studio/findByCurrentUser");

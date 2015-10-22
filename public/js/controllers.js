@@ -189,7 +189,7 @@ angular.module('studiocity')
     .controller("profileCtrl", function ($scope, studioService) {
 
     })
-    .controller("studiosCtrl", function ($scope, studioService) {
+    .controller("studiosCtrl", function ($scope, $modal, studioService) {
         $scope.studios = [];
         $scope.newStudio = {};
 
@@ -197,12 +197,14 @@ angular.module('studiocity')
             studioService.save(newStudio);
         };
 
-        studioService.findByCurrentUser().success(function (data) {
-            $scope.studios = data;
-            $scope.studios.forEach(function (item) {
-                item.map = {latitude: item.latitude, longitude: item.longitude};
+        var init = function () {
+            studioService.findByCurrentUser().success(function (data) {
+                $scope.studios = data;
+                $scope.studios.forEach(function (item) {
+                    item.map = {latitude: item.latitude, longitude: item.longitude};
+                });
             });
-        });
+        };
 
         var styleArray = [{ //todo move away
             "featureType": "water",
@@ -317,4 +319,52 @@ angular.module('studiocity')
             disableDefaultUI: true,
             styles: styleArray
         };
+
+        $scope.editStudio = function (studio) {
+            var modalInstance = $modal.open({
+                templateUrl: 'views/editStudio.html',
+                controller: 'editStudioCtrl',
+                windowClass: 'modal-custom',
+                backdrop: 'static',
+                resolve: {
+                    studio: function () {
+                        return studio;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function () {
+                init();
+            });
+        };
+
+        $scope.removeStudio = function (studio) {
+            studioService.remove(studio).success(function () {
+                init();
+            });
+        };
+
+        init();
+    })
+    .controller("editStudioCtrl", function ($scope, $cookies, $modalInstance, studioService, studio) {
+        $scope.flowOptions = {
+            headers: {
+                'X-XSRF-TOKEN': $cookies.get("XSRF-TOKEN")
+            }
+        };
+        var init = function () {
+            $scope.studio = studio || {};
+        };
+
+        $scope.save = function () {
+            studioService.save($scope.studio).success(function () {
+                $modalInstance.close();
+            });
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss();
+        };
+
+        init();
     });
