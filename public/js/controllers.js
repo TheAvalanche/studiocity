@@ -346,15 +346,26 @@ angular.module('studiocity')
 
         init();
     })
-    .controller("editStudioCtrl", function ($scope, $cookies, $modalInstance, studioService, studio) {
-        $scope.flowOptions = {
-            headers: {
-                'X-XSRF-TOKEN': $cookies.get("XSRF-TOKEN")
-            }
-        };
+    .controller("editStudioCtrl", function ($scope, $cookies, $modalInstance, studioService, FileUploader, studio) {
         var init = function () {
             $scope.studio = studio || {};
         };
+
+        $scope.uploader = new FileUploader({
+            url: '/upload/image',
+            headers: {
+                'X-XSRF-TOKEN': $cookies.get("XSRF-TOKEN")
+            },
+
+            onAfterAddingFile: function (item) {
+                $scope.uploader.uploadItem(item);
+            },
+
+            onCompleteItem: function (item, response) {
+                item.file.name = response.name;
+                $scope.logoUrl = item.file.name;
+            }
+        });
 
         $scope.save = function () {
             studioService.save($scope.studio).success(function () {

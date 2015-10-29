@@ -7,9 +7,9 @@ angular
         'duScroll',
         'ui.bootstrap',
         'uiGmapgoogle-maps',
-        'flow'
+        'angularFileUpload'
     ])
-    .config(function ($routeProvider, $httpProvider, uiGmapGoogleMapApiProvider, flowFactoryProvider) {
+    .config(function ($routeProvider, $httpProvider, uiGmapGoogleMapApiProvider) {
         $routeProvider.when('/', {
             templateUrl: 'views/front.html',
             controller: 'frontCtrl'
@@ -28,22 +28,9 @@ angular
             v: '3.20',
             libraries: 'weather,geometry,visualization'
         });
+    }).run(["$rootScope", "$http", function ($rootScope, $http) {
 
-        flowFactoryProvider.defaults = {
-            target: '/upload/image',
-            headers: {
-                "X-Requested-With" : 'XMLHttpRequest'
-            },
-            permanentErrors: [404, 500, 501],
-            maxChunkRetries: 1,
-            chunkRetryInterval: 5000,
-            simultaneousUploads: 4,
-            singleFile: true
-        };
-
-    }).run(["$rootScope", "$http", function($rootScope, $http) {
-
-        $http.get('/auth/user').success(function(data) {
+        $http.get('/auth/user').success(function (data) {
             if (data.name) {
                 $rootScope.authenticated = true;
                 $rootScope.user = data.principal;

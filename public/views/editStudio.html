@@ -78,19 +78,10 @@
             </div>
         </div>
         <div class="form-group">
-            <div>
-                <div class="thumbnail" ng-hide="$flow.files.length">
-                    <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image" />
-                </div>
-                <div class="thumbnail" ng-show="$flow.files.length">
-                    <img flow-img="$flow.files[0]" />
-                </div>
-                <div>
-                    <span class="btn" ng-hide="$flow.files.length" flow-btn flow-attrs="{accept:'image/*'}">Select image</span>
-                    <span class="btn" ng-show="$flow.files.length" flow-btn flow-attrs="{accept:'image/*'}">Change</span>
-                    <span class="btn btn-danger" ng-show="$flow.files.length" ng-click="$flow.cancel()">Remove</span>
-                </div>
-            </div>
+            <span class="btn btn-primary btn-file">
+                <span class="glyphicon glyphicon-plus"></span> Add image...
+                <input type="file" nv-file-select uploader="uploader" accept="image/*"/>
+            </span>
         </div>
     </form>
 </div>

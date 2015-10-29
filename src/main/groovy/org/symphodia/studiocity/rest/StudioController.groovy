@@ -32,7 +32,6 @@ class StudioController {
 
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
     void remove(@AuthenticationPrincipal SecurityUser principal, @RequestBody Studio studio) {
-        println "to remove"
         User savedUser = principal.user
 
         savedUser.studios.remove(studio)
