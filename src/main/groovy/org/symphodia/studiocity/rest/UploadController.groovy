@@ -1,6 +1,7 @@
 package org.symphodia.studiocity.rest
 
 import org.apache.commons.lang3.RandomStringUtils
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RequestMapping
@@ -14,10 +15,13 @@ import org.symphodia.studiocity.rest.dto.UploadResponse
 @RequestMapping("upload")
 class UploadController {
 
+    @Value('${upload.dir.path}')
+    String uploadDirPath
+
     @RequestMapping(value = "/image", method = RequestMethod.POST)
     ResponseEntity uploadImage(@RequestParam("file") MultipartFile request) {
         def name = generateFileName() + '.' + request.getOriginalFilename().tokenize('.').last()
-        new File(name).withOutputStream {it << request.inputStream}
+        new File("$uploadDirPath/$name").withOutputStream {it << request.inputStream}
         new ResponseEntity<>(new UploadResponse(name: name), HttpStatus.OK)
     }
 
