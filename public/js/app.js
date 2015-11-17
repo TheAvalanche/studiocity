@@ -19,7 +19,7 @@ angular
         }).when('/studios', {
             templateUrl: 'views/studios.html',
             controller: 'studiosCtrl'
-        }).otherwise('/');
+        }).otherwise({redirectTo: '/'});
 
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
