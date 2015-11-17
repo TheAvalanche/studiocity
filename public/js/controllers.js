@@ -335,6 +335,8 @@ angular.module('studiocity')
 
             modalInstance.result.then(function () {
                 init();
+            }, function () {
+                init();
             });
         };
 
@@ -363,7 +365,7 @@ angular.module('studiocity')
 
             onCompleteItem: function (item, response) {
                 item.file.name = response.name;
-                $scope.logoUrl = item.file.name;
+                $scope.studio.logoUrl = item.file.name;
             }
         });
 

@@ -26,15 +26,17 @@ class StudioController {
         User savedUser = principal.user
         Studio savedStudio = studioRepository.save(studio)
 
-        savedUser.studios << savedStudio
-        userRepository.save(savedUser)
+        if (savedUser.studios.find {it.id == studio.id} == null) {
+            savedUser.studios << savedStudio
+            userRepository.save(savedUser)
+        }
     }
 
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
     void remove(@AuthenticationPrincipal SecurityUser principal, @RequestBody Studio studio) {
         User savedUser = principal.user
 
-        savedUser.studios.remove(studio)
+        savedUser.studios.removeIf({it.id == studio.id})
         userRepository.save(savedUser)
 
         studioRepository.delete(studio)
@@ -43,7 +45,7 @@ class StudioController {
 
     @RequestMapping(value = "/findByCurrentUser")
     List<Studio> findByCurrentUser(@AuthenticationPrincipal SecurityUser principal) {
-        User savedUser = principal.user
+        User savedUser = userRepository.findOneByEmail(principal.user.email)
 
         savedUser.studios
     }

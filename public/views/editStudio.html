@@ -67,10 +67,12 @@
         </div>
         <div class="form-group">
             <label class="col-lg-2 col-lg-offset-2 control-label">Logo</label>
-            <img class="img-responsive img-thumbnail" ng-src="/uploaded/{{logoUrl}}"/>
-            <div class="col-lg-6 btn btn-primary btn-file">
-                <span class="glyphicon glyphicon-plus"></span> Add image...
-                <input type="file" nv-file-select uploader="uploader" accept="image/*"/>
+            <div class="col-lg-6">
+                <img ng-if="studio.logoUrl" class="img-responsive img-thumbnail" ng-src="/uploaded/{{studio.logoUrl}}"/>
+                <div class="btn btn-primary btn-file">
+                    <span class="glyphicon glyphicon-plus"></span> Add image...
+                    <input type="file" nv-file-select uploader="uploader" accept="image/*"/>
+                </div>
             </div>
         </div>
     </form>
