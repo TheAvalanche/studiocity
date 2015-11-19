@@ -21,4 +21,9 @@ class SearchController {
         studioRepository.count()
     }
 
+    @RequestMapping("/cities")
+    List<String> cities() {
+        studioRepository.distinctCities()
+    }
+
 }

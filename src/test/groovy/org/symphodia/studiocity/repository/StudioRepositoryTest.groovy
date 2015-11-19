@@ -1,5 +1,4 @@
 package org.symphodia.studiocity.repository
-
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.IntegrationTest
 import org.springframework.boot.test.SpringApplicationConfiguration
@@ -7,7 +6,6 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.web.WebAppConfiguration
 import org.symphodia.studiocity.Application
 import org.symphodia.studiocity.model.Studio
-import org.symphodia.studiocity.model.User
 import spock.lang.Specification
 
 @ActiveProfiles("test")
@@ -22,7 +20,7 @@ class StudioRepositoryTest extends Specification {
     @Autowired
     UserRepository userRepository
 
-    def "test studio repository"() {
+    def "test studio repository CRUD methods"() {
         setup:
         studioRepository.save(new Studio(name: "Test Studio"))
         when:
@@ -33,34 +31,16 @@ class StudioRepositoryTest extends Specification {
         studio.name == "Test Studio"
     }
 
-    def "test user repository"() {
+    def "test studio distinct values"() {
         setup:
-        def savedUser = userRepository.save(new User(email: "test@test.com"))
-        def savedStudio = studioRepository.save(new Studio(name: "Test Studio"))
+        studioRepository.save([new Studio(city: "Test1"), new Studio(city: "Test1"), new Studio(city: "Test2")])
         when:
-        savedUser.studios << savedStudio
-        userRepository.save(savedUser)
-        def count = userRepository.count()
-        def user = userRepository.findAll()[0]
+        def count = studioRepository.count()
+        def cities = studioRepository.distinctCities()
         then:
-        count == 1
-        user.studios[0].name == "Test Studio"
+        count == 3
+        cities == ['Test1', 'Test2']
+
     }
 
-    def "test user repository delete"() {
-        setup:
-        def savedUser = userRepository.save(new User(email: "test@test.com"))
-        def savedStudio = studioRepository.save(new Studio(name: "Test Studio"))
-        savedUser.studios << savedStudio
-        userRepository.save(savedUser)
-        when:
-        savedUser.studios.remove(savedStudio)
-        userRepository.save(savedUser)
-        studioRepository.delete(savedStudio)
-        def studioCount = studioRepository.count()
-        def user = userRepository.findAll()[0]
-        then:
-        studioCount == 0
-        user.studios.size() == 0
-    }
 }

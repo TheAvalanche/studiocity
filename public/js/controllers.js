@@ -64,6 +64,10 @@ angular.module('studiocity')
 
         $scope.currentPage = 1;
 
+        searchService.cities().success(function (data) {
+            $scope.cities = data;
+        });
+
         searchService.search().success(function (data) {
             $scope.studios = data;
             $scope.studios.forEach(function (item) {
