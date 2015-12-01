@@ -1,7 +1,10 @@
 package org.symphodia.studiocity.rest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import org.symphodia.studiocity.model.StudioType
 import org.symphodia.studiocity.repository.StudioRepository
 
 @RestController
@@ -11,9 +14,9 @@ class SearchController {
     @Autowired
     StudioRepository studioRepository
 
-    @RequestMapping("/search")
-    def search() {
-        studioRepository.findAll()
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    def search(@RequestParam(required = false) StudioType studioType, @RequestParam(required = false) String city) {
+        studioRepository.findByStudioTypesAndCityOptional(studioType, city)
     }
 
     @RequestMapping("/count")
@@ -24,6 +27,11 @@ class SearchController {
     @RequestMapping("/cities")
     List<String> cities() {
         studioRepository.distinctCities()
+    }
+
+    @RequestMapping("/studioTypes")
+    List<StudioType> studioTypes() {
+        StudioType.values()
     }
 
 }

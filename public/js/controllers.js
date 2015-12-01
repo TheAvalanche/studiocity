@@ -68,12 +68,25 @@ angular.module('studiocity')
             $scope.cities = data;
         });
 
+        searchService.studioTypes().success(function (data) {
+            $scope.studioTypes = data;
+        });
+
         searchService.search().success(function (data) {
             $scope.studios = data;
             $scope.studios.forEach(function (item) {
                 item.map = {latitude: item.latitude, longitude: item.longitude};
             });
         });
+
+        $scope.search = function () {
+            searchService.search($scope.selected.studioType, $scope.selected.city).success(function (data) {
+                $scope.studios = data;
+                $scope.studios.forEach(function (item) {
+                    item.map = {latitude: item.latitude, longitude: item.longitude};
+                });
+            });
+        };
 
 
         var styleArray = [{ //todo move away
