@@ -9,7 +9,7 @@ angular.module('studiocity')
                 authorization: "Basic " + btoa(credentials.username + ":" + credentials.password)
             } : {};
 
-            $http.get('/auth/user', {headers: headers}).success(function (data) { //todo separate logic
+            $http.get('/auth/user', {headers: headers}).success(function (data) {
                 $rootScope.authenticated = !!data.name;
                 $rootScope.user = data.principal;
                 $scope.error = false;
@@ -31,7 +31,7 @@ angular.module('studiocity')
         };
     })
     .controller("menuCtrl", function ($rootScope, $scope, $http, $modal, $location) {
-        $scope.logout = function () { //todo separate logic and fix csrf bug
+        $scope.logout = function () {
             $http.post('logout', {}).success(function() {
                 $rootScope.authenticated = false;
                 $location.path("/");
@@ -52,159 +52,47 @@ angular.module('studiocity')
 
         };
     })
-    .controller("frontCtrl", function ($scope, $http, searchService) {
+    .controller("frontCtrl", function ($scope, $http, $document, searchService) {
         $scope.newCredentials = {};
         $scope.signIn = function () { //todo more serious implementation
             $http.post('/auth/signIn', $scope.newCredentials);
         };
 
-        searchService.count().success(function (data) {
-            $scope.totalItems = data;
-        });
+        var init = function () {
+            $scope.selected = {};
+            $scope.currentPage = 1;
 
-        $scope.currentPage = 1;
-
-        searchService.cities().success(function (data) {
-            $scope.cities = data;
-        });
-
-        searchService.studioTypes().success(function (data) {
-            $scope.studioTypes = data;
-        });
-
-        searchService.search().success(function (data) {
-            $scope.studios = data;
-            $scope.studios.forEach(function (item) {
-                item.map = {latitude: item.latitude, longitude: item.longitude};
+            searchService.cities().success(function (data) {
+                $scope.cities = data;
             });
-        });
 
-        $scope.search = function () {
-            searchService.search($scope.selected.studioType, $scope.selected.city).success(function (data) {
+            searchService.studioTypes().success(function (data) {
+                $scope.studioTypes = data;
+            });
+        };
+
+        var search = function (studioType, city, skip, limit) {
+            searchService.search(studioType, city, skip, limit).success(function (data) {
                 $scope.studios = data;
-                $scope.studios.forEach(function (item) {
-                    item.map = {latitude: item.latitude, longitude: item.longitude};
+
+                searchService.count(studioType, city).success(function (data) {
+                    $scope.totalItems = data;
                 });
             });
         };
 
-
-        var styleArray = [{ //todo move away
-            "featureType": "water",
-            "elementType": "geometry",
-            "stylers": [{
-                "color": "#000000"
-            }, {
-                "lightness": 17
-            }]
-        }, {
-            "featureType": "landscape",
-            "elementType": "geometry",
-            "stylers": [{
-                "color": "#000000"
-            }, {
-                "lightness": 20
-            }]
-        }, {
-            "featureType": "road.highway",
-            "elementType": "geometry.fill",
-            "stylers": [{
-                "color": "#000000"
-            }, {
-                "lightness": 17
-            }]
-        }, {
-            "featureType": "road.highway",
-            "elementType": "geometry.stroke",
-            "stylers": [{
-                "color": "#000000"
-            }, {
-                "lightness": 29
-            }, {
-                "weight": 0.2
-            }]
-        }, {
-            "featureType": "road.arterial",
-            "elementType": "geometry",
-            "stylers": [{
-                "color": "#000000"
-            }, {
-                "lightness": 18
-            }]
-        }, {
-            "featureType": "road.local",
-            "elementType": "geometry",
-            "stylers": [{
-                "color": "#000000"
-            }, {
-                "lightness": 16
-            }]
-        }, {
-            "featureType": "poi",
-            "elementType": "geometry",
-            "stylers": [{
-                "color": "#000000"
-            }, {
-                "lightness": 21
-            }]
-        }, {
-            "elementType": "labels.text.stroke",
-            "stylers": [{
-                "visibility": "on"
-            }, {
-                "color": "#000000"
-            }, {
-                "lightness": 16
-            }]
-        }, {
-            "elementType": "labels.text.fill",
-            "stylers": [{
-                "saturation": 36
-            }, {
-                "color": "#000000"
-            }, {
-                "lightness": 40
-            }]
-        }, {
-            "elementType": "labels.icon",
-            "stylers": [{
-                "visibility": "off"
-            }]
-        }, {
-            "featureType": "transit",
-            "elementType": "geometry",
-            "stylers": [{
-                "color": "#000000"
-            }, {
-                "lightness": 19
-            }]
-        }, {
-            "featureType": "administrative",
-            "elementType": "geometry.fill",
-            "stylers": [{
-                "color": "#000000"
-            }, {
-                "lightness": 20
-            }]
-        }, {
-            "featureType": "administrative",
-            "elementType": "geometry.stroke",
-            "stylers": [{
-                "color": "#000000"
-            }, {
-                "lightness": 17
-            }, {
-                "weight": 1.2
-            }]
-        }];
-
-        $scope.options = {
-            disableDefaultUI: true,
-            styles: styleArray
+        $scope.pageChanged = function () {
+            $document.duScrollTo(angular.element(document.getElementById("search")), 0, 1000).then(function () {
+                search($scope.selected.studioType, $scope.selected.city, ($scope.currentPage - 1) * 10, 10);
+            });
         };
-    })
-    .controller("profileCtrl", function ($scope, studioService) {
 
+        $scope.search = function () {
+            search($scope.selected.studioType, $scope.selected.city);
+        };
+
+        init();
+        search();
     })
     .controller("studiosCtrl", function ($scope, $modal, studioService) {
         $scope.studios = [];
@@ -217,124 +105,7 @@ angular.module('studiocity')
         var init = function () {
             studioService.findByCurrentUser().success(function (data) {
                 $scope.studios = data;
-                $scope.studios.forEach(function (item) {
-                    item.map = {latitude: item.latitude, longitude: item.longitude};
-                });
             });
-        };
-
-        var styleArray = [{ //todo move away
-            "featureType": "water",
-            "elementType": "geometry",
-            "stylers": [{
-                "color": "#000000"
-            }, {
-                "lightness": 17
-            }]
-        }, {
-            "featureType": "landscape",
-            "elementType": "geometry",
-            "stylers": [{
-                "color": "#000000"
-            }, {
-                "lightness": 20
-            }]
-        }, {
-            "featureType": "road.highway",
-            "elementType": "geometry.fill",
-            "stylers": [{
-                "color": "#000000"
-            }, {
-                "lightness": 17
-            }]
-        }, {
-            "featureType": "road.highway",
-            "elementType": "geometry.stroke",
-            "stylers": [{
-                "color": "#000000"
-            }, {
-                "lightness": 29
-            }, {
-                "weight": 0.2
-            }]
-        }, {
-            "featureType": "road.arterial",
-            "elementType": "geometry",
-            "stylers": [{
-                "color": "#000000"
-            }, {
-                "lightness": 18
-            }]
-        }, {
-            "featureType": "road.local",
-            "elementType": "geometry",
-            "stylers": [{
-                "color": "#000000"
-            }, {
-                "lightness": 16
-            }]
-        }, {
-            "featureType": "poi",
-            "elementType": "geometry",
-            "stylers": [{
-                "color": "#000000"
-            }, {
-                "lightness": 21
-            }]
-        }, {
-            "elementType": "labels.text.stroke",
-            "stylers": [{
-                "visibility": "on"
-            }, {
-                "color": "#000000"
-            }, {
-                "lightness": 16
-            }]
-        }, {
-            "elementType": "labels.text.fill",
-            "stylers": [{
-                "saturation": 36
-            }, {
-                "color": "#000000"
-            }, {
-                "lightness": 40
-            }]
-        }, {
-            "elementType": "labels.icon",
-            "stylers": [{
-                "visibility": "off"
-            }]
-        }, {
-            "featureType": "transit",
-            "elementType": "geometry",
-            "stylers": [{
-                "color": "#000000"
-            }, {
-                "lightness": 19
-            }]
-        }, {
-            "featureType": "administrative",
-            "elementType": "geometry.fill",
-            "stylers": [{
-                "color": "#000000"
-            }, {
-                "lightness": 20
-            }]
-        }, {
-            "featureType": "administrative",
-            "elementType": "geometry.stroke",
-            "stylers": [{
-                "color": "#000000"
-            }, {
-                "lightness": 17
-            }, {
-                "weight": 1.2
-            }]
-        }];
-
-        $scope.options = {
-            disableDefaultUI: true,
-            styles: styleArray
         };
 
         $scope.editStudio = function (studio) {

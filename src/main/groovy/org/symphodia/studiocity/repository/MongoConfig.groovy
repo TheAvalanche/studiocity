@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration
 
-@Profile("prod")
+@Profile(["sit", "prod"])
 @Configuration
 class MongoConfig extends AbstractMongoConfiguration {
 

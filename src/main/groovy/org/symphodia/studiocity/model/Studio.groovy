@@ -20,7 +20,5 @@ class Studio {
     String site
     String workingHours
     String description
-    Double latitude
-    Double longitude
     List<StudioType> studioTypes = new ArrayList<>()
 }

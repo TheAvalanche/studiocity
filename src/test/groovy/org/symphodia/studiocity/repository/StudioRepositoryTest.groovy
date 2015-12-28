@@ -18,9 +18,6 @@ class StudioRepositoryTest extends Specification {
     @Autowired
     StudioRepository studioRepository
 
-    @Autowired
-    UserRepository userRepository
-
     def setup() {
         studioRepository.save([new Studio(name: "Test Studio 1", studioTypes: [StudioType.RECORDING], city: "Test1"),
                                new Studio(name: "Test Studio 2", studioTypes: [StudioType.RECORDING, StudioType.REHEARSAL], city: "Test2"),
@@ -36,7 +33,7 @@ class StudioRepositoryTest extends Specification {
         def count = studioRepository.count()
         def studio = studioRepository.findAll()[0]
         then:
-        count == 3
+        count == 3L
         studio.name == "Test Studio 1"
     }
 
@@ -45,7 +42,7 @@ class StudioRepositoryTest extends Specification {
         def count = studioRepository.count()
         def cities = studioRepository.distinctCities()
         then:
-        count == 3
+        count == 3L
         cities == ['Test1', 'Test2']
 
     }
@@ -65,6 +62,51 @@ class StudioRepositoryTest extends Specification {
         null                    | "Test2"   | 2
         null                    | null      | 3
 
+    }
+
+    def "test count studio by studio type and city"() {
+        expect:
+        studioRepository.countByStudioTypesAndCityOptional(studioType, city) == expectedCount
+        where:
+        studioType              | city      | expectedCount
+        StudioType.RECORDING    | "Test1"   | 1L
+        StudioType.RECORDING    | "Test2"   | 1L
+        StudioType.RECORDING    | null      | 2L
+        StudioType.REHEARSAL    | "Test1"   | 0L
+        StudioType.REHEARSAL    | "Test2"   | 2L
+        StudioType.REHEARSAL    | null      | 2L
+        null                    | "Test1"   | 1L
+        null                    | "Test2"   | 2L
+        null                    | null      | 3L
+
+    }
+
+    def "test studio pagination"() {
+        setup:
+        studioRepository.deleteAll()
+        studioRepository.save([new Studio(name: "Test Studio 1"),
+                               new Studio(name: "Test Studio 2"),
+                               new Studio(name: "Test Studio 3"),
+                               new Studio(name: "Test Studio 4"),
+                               new Studio(name: "Test Studio 5"),
+                               new Studio(name: "Test Studio 6"),
+                               new Studio(name: "Test Studio 7"),
+                               new Studio(name: "Test Studio 8"),
+                               new Studio(name: "Test Studio 9"),
+                               new Studio(name: "Test Studio 10"),
+                               new Studio(name: "Test Studio 11"),
+                               new Studio(name: "Test Studio 12")])
+        when:
+        def totalCount = studioRepository.count()
+        def defaultPaginationCount = studioRepository.findByStudioTypesAndCityOptional(null, null).size()
+        def skip3limit3 = studioRepository.findByStudioTypesAndCityOptional(null, null, 3, 3)
+        then:
+        totalCount == 12L
+        defaultPaginationCount == 10
+        skip3limit3.size() == 3
+        skip3limit3[0].name == "Test Studio 4"
+        skip3limit3[1].name == "Test Studio 5"
+        skip3limit3[2].name == "Test Studio 6"
     }
 
 }

@@ -78,9 +78,6 @@
                 <p ng-if="studio.site"><i class="fa fa-globe"></i> <a ng-href="{{studio.site}}">{{studio.site}}</a></p>
 
                 <p ng-if="studio.workingHours"><i class="fa fa-clock-o"></i> {{studio.workingHours}}</p>
-                <ui-gmap-google-map center='studio.map' zoom='15' options="options">
-                    <ui-gmap-marker coords="studio.map" idKey="studio.id"/>
-                </ui-gmap-google-map>
             </div>
         </article>
     </div>

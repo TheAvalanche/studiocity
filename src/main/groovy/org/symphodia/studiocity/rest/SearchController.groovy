@@ -15,13 +15,17 @@ class SearchController {
     StudioRepository studioRepository
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    def search(@RequestParam(required = false) StudioType studioType, @RequestParam(required = false) String city) {
-        studioRepository.findByStudioTypesAndCityOptional(studioType, city)
+    def search(@RequestParam(required = false) StudioType studioType,
+               @RequestParam(required = false) String city,
+               @RequestParam(required = false) Integer skip,
+               @RequestParam(required = false) Integer limit) {
+        studioRepository.findByStudioTypesAndCityOptional(studioType, city, skip ?: 0, limit ?: 10)
     }
 
-    @RequestMapping("/count")
-    def count() {
-        studioRepository.count()
+    @RequestMapping(value = "/count", method = RequestMethod.GET)
+    def count(@RequestParam(required = false) StudioType studioType,
+              @RequestParam(required = false) String city) {
+        studioRepository.countByStudioTypesAndCityOptional(studioType, city)
     }
 
     @RequestMapping("/cities")

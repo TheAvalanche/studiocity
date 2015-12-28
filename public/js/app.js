@@ -6,16 +6,12 @@ angular
         'ngCookies',
         'duScroll',
         'ui.bootstrap',
-        'uiGmapgoogle-maps',
         'angularFileUpload'
     ])
-    .config(function ($routeProvider, $httpProvider, uiGmapGoogleMapApiProvider) {
+    .config(function ($routeProvider, $httpProvider) {
         $routeProvider.when('/', {
             templateUrl: 'views/front.html',
             controller: 'frontCtrl'
-        }).when('/profile', {
-            templateUrl: 'views/profile.html',
-            controller: 'profileCtrl'
         }).when('/studios', {
             templateUrl: 'views/studios.html',
             controller: 'studiosCtrl'
@@ -23,11 +19,6 @@ angular
 
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
-        uiGmapGoogleMapApiProvider.configure({
-            //    key: 'your api key',
-            v: '3.20',
-            libraries: 'weather,geometry,visualization'
-        });
     }).run(["$rootScope", "$http", function ($rootScope, $http) {
 
         $http.get('/auth/user').success(function (data) {

@@ -4,11 +4,11 @@ angular.module('studiocity')
     .factory('searchService', ['$http', function ($http) {
 
         return {
-            search: function (studioType, city) {
-                return $http.get("/rest/search", {params: {studioType: studioType, city: city}});
+            search: function (studioType, city, skip, limit) {
+                return $http.get("/rest/search", {params: {studioType: studioType, city: city, skip: skip, limit: limit}});
             },
-            count: function () {
-                return $http.get("/rest/count");
+            count: function (studioType, city) {
+                return $http.get("/rest/count", {params: {studioType: studioType, city: city}});
             },
             cities: function () {
                 return $http.get("/rest/cities");

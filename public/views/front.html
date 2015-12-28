@@ -102,9 +102,6 @@
                 <p ng-if="studio.site"><i class="fa fa-globe"></i> <a ng-href="{{studio.site}}">{{studio.site}}</a></p>
 
                 <p ng-if="studio.workingHours"><i class="fa fa-clock-o"></i> {{studio.workingHours}}</p>
-                <ui-gmap-google-map center='studio.map' zoom='15' options="options">
-                    <ui-gmap-marker coords="studio.map" idKey="studio.id"/>
-                </ui-gmap-google-map>
             </div>
         </article>
     </div>
@@ -114,7 +111,7 @@
 </section>
 
 <section id="signin" class="container signin-section">
-    <div class="row">
+    <div  ng-show="!authenticated" class="row">
         <div class="col-lg-6 col-lg-offset-6">
             <h2 class="col-lg-offset-2">Sign In</h2>
 
